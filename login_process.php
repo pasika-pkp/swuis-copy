@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute([$username]);
     $staff = $stmt->fetch();
     
-    // เพื่อให้ทดสอบง่ายสำหรับโปรเจ็คต์ จึงเช็คทั้งแบบข้อความธรรมดา '1234' และแบบ Hash
+    // ตรวจสอบรหัสผ่าน: รองรับทั้งรหัสทดสอบ '1234' และรหัสที่เข้ารหัสปลอดภัย (Hash)
     if ($staff && ($password === '1234' || password_verify($password, $staff['password']))) {
         $_SESSION['user_id'] = $staff['staff_id'];
         $_SESSION['role'] = $staff['role'];
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     // ล็อกอินไม่สำเร็จ
-    header("Location: index.php?error=invalid#login");
+    header("Location: login.php?error=invalid#login");
     exit();
 }
 ?>
