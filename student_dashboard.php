@@ -13,17 +13,6 @@ $stmt = $pdo->prepare("
 $stmt->execute([$_SESSION['user_id']]);
 $requests = $stmt->fetchAll();
 
-// ฟังก์ชันสำหรับแสดงป้ายสถานะ
-/*function getStatusBadge($status) {
-    switch($status) {
-        case 1: return '<span class="badge bg-1">รับเรื่องเข้าระบบ</span>';
-        case 2: return '<span class="badge bg-2">อาจารย์ที่ปรึกษาอนุมัติ</span>';
-        case 3: return '<span class="badge bg-3">ออกใบส่งตัวแล้ว</span>';
-        case 4: return '<span class="badge bg-4">ฝึกงานเสร็จสิ้น</span>';
-        case 9: return '<span class="badge bg-9">ยกเลิก</span>';
-        default: return '<span class="badge bg-1">ไม่ทราบสถานะ</span>';
-    }
-}*/
 ?>
 <!DOCTYPE html>
 <html lang="th">

@@ -1,6 +1,5 @@
 <?php
 require 'db.php';
-//session_start(); // มั่นใจว่ามีการ start session เพื่อใช้ $_SESSION['user_id']
 checkRole('student');
 
 // ดึงรายชื่อบริษัทที่มีอยู่แล้วมาทำ Auto-complete (datalist)

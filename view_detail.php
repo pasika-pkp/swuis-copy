@@ -34,35 +34,27 @@ if (!$data) {
     <style>
     /* ปรับความกว้างและเพิ่มเงาให้ตัว Card */
     .card {
-        max-width: 1000px; /* ปรับตัวเลขนี้ตามความกว้างที่ต้องการ */
-        margin: 2rem auto; /* จัดกลางหน้าจอ */
+        max-width: 1000px;
+        margin: 2rem auto; 
         background: #fff;
-        border-radius: 15px; /* ความมนของขอบ */
-        
-        /* เพิ่มเงา (Box Shadow) */
+        border-radius: 15px; 
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
         border: none;
         overflow: hidden;
     }
-
-    /* ลดความอึดอัดในส่วนเนื้อหา */
     .card-body {
-        padding: 40px; /* เพิ่มพื้นที่ว่างด้านใน */
+        padding: 40px; 
     }
-
-    /* ปรับระยะห่างของ Grid ข้อมูลให้ดูโปร่งขึ้น */
     .detail-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* แบ่งเป็น 2 คอลัมน์ถ้ากว้างพอ */
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
-
-    /* กล่องหมายเหตุ */
     .note-box {
         background: #f9f9f9;
         padding: 20px;
         border-radius: 10px;
-        border-left: 5px solid #ce1126; /* แถบสีแดง มศว */
+        border-left: 5px solid #ce1126; 
         margin-top: 10px;
         overflow-wrap: break-word; 
         white-space: normal;
