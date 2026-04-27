@@ -1,0 +1,578 @@
+@import url(normalize.css);
+@import url(icomoon.css);
+@import url(font-awesome.min.css);
+@import url(owl.carousel.min.css);
+/*@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-red: #c92a2a;      /* สีแดง SWU */
+    --primary-red-hover: #b02323;
+    --light-red: #fff0f0;
+    --dark-gray: #343a40;        /* สีเทาเข้ม */
+    --medium-gray: #868e96;
+    --light-gray: #f8f9fa;
+    --white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Prompt', sans-serif;
+    box-sizing: border-box;
+}
+body {
+     background: #fff;
+
+     color: #fff;
+     font-size: 14px;
+     /* font-family: 'Prompt', sans-serif; */
+     line-height: 1.80857;
+     font-weight: normal;
+}
+
+
+/* เริ่มทำหน้าข่าวสาร */
+.card-cintainer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+.card{
+    width: 325px;
+    background-color: aliceblue;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgb(0, 0, 0, 0.2);
+    margin: 20px;
+}
+.card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-content{
+    padding: 16px;
+}
+.card-content h3{
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+.card-content p{
+    color: #666;
+    font-size: 15px;
+    line-height: 1.3;
+}
+.card-content .btn{
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #dd0000;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 16px;
+    color: azure;
+
+}
+
+
+.news-heade {
+    text-align :left;
+    margin: 0;
+    padding-left: 60px; /* ดันให้ไม่ติดขอบ */
+    margin-top: 80px;
+
+}
+
+.news-heade .sub {
+    font-size: 14px;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+.news-heade a {
+    font-size: 50px;
+    font-weight: 700;
+    color: #111;
+}
+
+.news-heade .line {
+    width: auto;
+    height: 3px;
+    background: #dd0000;
+    margin: 15px 0;
+}
+/* จบทำหน้าข่าว */
+/* หน้ากิจกรรม */
+
+.activity-header {
+    text-align :left;
+    margin: 0;
+    padding-left: 60px; /* ดันให้ไม่ติดขอบ */
+    margin-top: 80px;
+
+}
+
+.activity-header .sub {
+    font-size: 14px;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+.activity-header a {
+    font-size: 50px;
+    font-weight: 700;
+    color: #111;
+}
+
+.activity-header .line {
+    width: auto;
+    height: 3px;
+    background: #dd0000;
+    margin: 15px 0;
+}
+
+
+.wrapper {
+    width: 100%;
+    min-height: 50vh; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;              
+    padding: 50px 20px;      
+    flex-wrap: wrap;
+}
+.img {
+    width: 30%;
+    max-width: 400px;
+    height: 300px;     
+    position: relative;
+    overflow: hidden;
+}
+
+.img img {
+    width: 100%;
+    height: 100%;         
+    object-fit: cover;    
+    display: block;
+}
+.content{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background:rgb(0, 0, 0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: 0.6s;
+}
+.content:hover{
+    opacity: 1;
+}
+.content a{
+    font-size: 35px;
+    color: #ffffff;
+    display: block;
+    padding: 0 10px;
+    line-height: 1.4;
+}
+
+.content > *{
+    transform: translateY(25px);
+    transition: transform 0.6s;
+}
+.content:hover > *{
+    transform: translateY(0px);
+}/* จบหน้ากิจกรรม */
+.container-course {
+    padding: 10px;
+    max-width: 900px;
+    margin: 10px auto;
+    text-align: left;
+  }
+  
+
+
+
+/* เริ่มทำส่วนของเมนูและheader */
+a {
+    color: #1f1f1f;
+    text-decoration: none;
+    outline: none !important;
+    transition: all .3s ease-in-out;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*-- navigation--*/
+
+.navigation.navbar {
+     justify-content: flex-end;
+     padding-top: 12px;
+}
+
+.navigation.navbar-dark .navbar-nav .nav-link {
+     margin: 0 10px;
+     color: #030000;
+     font-size: 16px;
+     line-height: 20px;
+     font-weight: 400;
+     text-transform: uppercase;
+     padding: 0 0 3px 0;
+     position: relative;
+     white-space: nowrap;
+
+}
+
+.navigation.navbar-dark .navbar-nav .nav-link:focus,
+.navigation.navbar-dark .navbar-nav .nav-link:hover {
+     color: #c92a2a;
+     border-bottom: #c92a2a solid 1px;
+}
+
+.navigation.navbar-dark .navbar-nav .nav-link:focus::before,
+.navigation.navbar-dark .navbar-nav .nav-link:hover::before {
+     position: relative;
+     content: "";
+     background: #c92a2a;
+     width: 10px;
+     height: 10px;
+     border-radius: 10px;
+     bottom: -29px;
+     float: none;
+     margin: 0 auto;
+     display: flex;
+}
+
+.navigation.navbar-dark .navbar-nav .active>.nav-link,
+.navigation.navbar-dark .navbar-nav .nav-link.active,
+.navigation.navbar-dark .navbar-nav .nav-link.show,
+.navigation.navbar-dark .navbar-nav .show>.nav-link {
+     color: #c92a2a;
+     border-bottom: #c92a2a solid 1px;
+}
+
+.navigation.navbar-dark .navbar-nav .active>.nav-link::before,
+.navigation.navbar-dark .navbar-nav .nav-link.active::before,
+.navigation.navbar-dark .navbar-nav .nav-link.show::before,
+.navigation.navbar-dark .navbar-nav .show>.nav-link::before {
+     position: relative;
+     content: "";
+     background: #c92a2a;
+     width: 10px;
+     height: 10px;
+     border-radius: 10px;
+     bottom: -29px;
+     float: none;
+     margin: 0 auto;
+     display: flex;
+}
+
+.navbar-expand-md .navbar-nav {
+     padding-right: 10px;
+}
+
+.le_co i {
+     color: #c92a2a !important;
+}
+
+.header {
+     width: 100%;
+     padding: 73px 80px;
+     background: #F5F5F5;
+     background-size: 100% 100%;
+     background-repeat: no-repeat;
+}
+
+.white_bg {
+     background: rgba(255, 255, 255, 0.95) !important; 
+     border-radius: 50px;
+     opacity: 1;
+     padding: 20px 35px;
+     box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+     
+}
+
+.container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.logo_section .center-desk a .logo_text {
+    display: flex;
+    flex-direction: column;    
+    align-items: flex-start;   
+    line-height: 1.1;     
+    font-size: 20px;
+    width: max-content;
+    margin-right: 0;
+}
+
+/* ปรับแต่งข้อความบรรทัดล่าง (University) */
+.logo_section .center-desk a .logo_text span {
+    font-size: 15px !important; 
+    font-weight: 500;
+    color: #CE2626;             
+    margin-top: 2px;          
+    display: block;
+    white-space: nowrap;
+    overflow: visible;   
+    margin-right: 0;          
+}
+.logo_section .center-desk a img.logo_icon {
+    width: 80px;               
+    height: auto;              
+    margin-right: 20px;        
+    display: inline-block;
+}
+.logo_section .center-desk a {
+    display: flex !important;
+    flex-direction: row;     
+    align-items: center;   
+    text-decoration: none;
+}
+/** banner section **/
+.banner_main {
+    padding: 10px 0 20px 0;
+}
+
+/* รูป slider - เพิ่มการตัดขอบมนที่ตัวครอบเพื่อแก้ปัญหามุมไม่มนตอนเลื่อน */
+#banner1 .carousel-inner {
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.slider-img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 30px;
+    display: block;
+}
+
+#banner1 .carousel-indicators {
+    display: none;
+}
+
+/* ยุบรวมปุ่ม Prev/Next ไว้ในชุดเดียว */
+#banner1 .carousel-control-prev,
+#banner1 .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c92a2a;
+    border: #c92a2a solid 1px;
+    top: 85%;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 5;
+    opacity: 1;
+}
+
+/* ปุ่มซ้าย */
+#banner1 .carousel-control-prev {
+    left: 50%;
+    transform: translateX(-120%);
+}
+
+/* ปุ่มขวา */
+#banner1 .carousel-control-next {
+    left: 50%;
+    transform: translateX(20%);
+}
+/* เพิ่ม Effect เวลาเอาเมาส์วาง (Hover) ให้ดูโต้ตอบได้ */
+#banner1 .carousel-control-prev:hover,
+#banner1 .carousel-control-next:hover {
+    background: #c92a2a;
+    color: #fff;
+}
+.navbar ul li {
+    position: relative;
+}
+/* จบส่วนของเมนูและheader */
+/* เริ่มทำเมนูdropdown */
+/* 🔽 dropdown หลัก */
+.navbar ul li ul.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    /* 🔥 glass effect */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+
+    list-style: none;
+    padding: 10px 0;
+    margin: 10px 0 0 0;
+    min-width: 200px;
+    z-index: 10000;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+.navbar ul li:hover ul.dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+ul li ul.dropdown::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+}
+.dropdown li a {
+    display: block;
+    padding: 10px 20px;
+    color: #000;
+    transition: 0.3s;
+}
+ul li ul.dropdown li a:hover {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+/* จบการทำเมนูdropdown */
+
+.back-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: none; /* ซ่อนไว้ตั้งแต่เริ่ม */
+    z-index: 99;
+    transition: all 0.3s; /* เพิ่มความสมูท */
+}
+.back-to-top:hover {
+    background-color: var(--primary-red) !important; /* เปลี่ยนเป็นสีแดง SWU เมื่อชี้ */
+    color: var(--white) !important;
+    transform: translateY(-5px); /* แถมเอฟเฟกต์ลอยขึ้นเล็กน้อยให้ดูพรีเมียม */
+    box-shadow: var(--shadow-md); /* เพิ่มเงาให้ดูมีมิติ */
+}
+/* --- Footer Custom Design (-earth) --- */
+.footer-earth {
+    background-color: var(--dark-gray); /* ใช้สีเทาเข้มจาก root คุณ */
+    color: var(--white);
+    padding: 3rem 0 1.5rem 0;
+    margin-top: auto;
+    border-top: 4px solid var(--primary-red); /* เพิ่มเส้นขอบบนสีแดงให้ดูเด่น */
+}
+
+.container-earth {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.grid-earth {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+.title-earth {
+    color: var(--white);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.sub-title-earth {
+    color: var(--primary-red); /* หัวข้อคอลัมน์ใช้สีแดง */
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+}
+
+.text-earth {
+    font-size: 0.9rem;
+    color: #ced4da;
+    line-height: 1.8;
+}
+.col-earth {
+    text-align: center; /* ดันข้อความทั้งหมดในคอลัมน์ (รวมหัวข้อสีแดง) มาไว้ตรงกลาง */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* มั่นใจว่าเนื้อหาที่เป็น Flexbox (เช่น ไอคอน) จะมากลางด้วย */
+}
+
+
+/* Social Icons ในวงกลม */
+.icon-group-earth {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+}
+
+.btn-social-earth {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: var(--white) !important; /* บังคับให้ไอคอนเป็นสีขาว */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* จัดระยะห่างไอคอนในวงกลม */
+.btn-social-earth i {
+    line-height: 1;
+    font-size: 18px; /* ปรับขนาดไอคอนให้พอดีวงกลม */
+}
+
+
+.btn-social-earth:hover {
+    background-color: var(--primary-red);
+    transform: translateY(-3px);
+    color: var(--white);
+}
+
+/* ส่วนลิขสิทธิ์ด้านล่าง */
+.copyright-earth {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright-earth p {
+    font-size: 0.85rem;
+    color: var(--medium-gray);
+}
+
+/* ปรับปรุง Responsive */
+@media (max-width: 768px) {
+    .footer-earth {
+        text-align: center;
+    }
+    .icon-group-earth {
+        justify-content: center;
+    }
+
+}
+

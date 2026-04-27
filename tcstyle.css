@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-red: #c92a2a;      /* สีแดง SWU */
+    --primary-red-hover: #b02323;
+    --light-red: #fff0f0;
+    --dark-gray: #343a40;        /* สีเทาเข้ม */
+    --medium-gray: #868e96;
+    --light-gray: #f8f9fa;
+    --white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Prompt', sans-serif;
+}
+
+body {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+   display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    
+    background-color: #ffffff !important; /* สีขาว */
+    margin: 20px auto !important;        /* เว้นขอบบนและซ้ายขวา */
+    padding: 10px 35px !important;       /* ระยะห่างข้างในแถบ */
+    width: 90% !important;               /* ความกว้างแถบ */
+    max-width: 1200px !important;
+    
+    border-radius: 40px !important;      /* ความมนของแถบหลัก */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important; /* เงาฟุ้งๆ */
+    
+    position: sticky !important;
+    top: 20px;
+    z-index: 9999;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.nav-brand img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-links a {
+    text-decoration: none !important;
+    color: #333 !important;
+    font-family: 'Prompt', sans-serif;
+    font-size: 15px;
+}
+
+.nav-links a:hover {
+    color: var(--primary-red);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, var(--white) 0%, var(--light-red) 100%);
+    border-radius: 20px;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+}
+
+/* CONTAINER */
+.container {
+  padding: 30px;
+  max-width: 1200px; /* เพิ่มจาก 900 เป็น 1200 */
+  margin: auto;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* จอกลาง */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* แท็บเล็ต */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* มือถือ */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* IMAGE */
+.card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+/* TEXT */
+.name-th {
+  font-weight: bold;
+}
+
+.name-en {
+  color: gray;
+  font-size: 14px;
+}
+
+.position {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.email {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #c92a2a;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-gray);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+}
