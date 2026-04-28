@@ -18,34 +18,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $internship_position = trim($_POST['internship_position']);
 
 
-     try {
-        $checkStmt = $pdo->prepare("SELECT company_id FROM Company WHERE company_name = ?");
-        $checkStmt->execute([$company_name]);
+    try {
+        // 1. เช็คว่ามีบริษัทที่ "ชื่อ" และ "ที่อยู่" ตรงกันเป๊ะๆ หรือไม่
+        $checkStmt = $pdo->prepare("SELECT company_id FROM Company WHERE company_name = ? AND address = ?");
+        $checkStmt->execute([$company_name, $address]);
         $existingCompany = $checkStmt->fetch();
-
+    
         if ($existingCompany) {
+            // กรณีที่ 1: ชื่อและที่อยู่ตรงกัน -> ใช้ ID เดิม 
+            // (อาจจะอัปเดตแค่ชื่อผู้ติดต่อหรือเบอร์โทรเพื่อให้ข้อมูลเป็นปัจจุบัน)
             $company_id = $existingCompany['company_id'];
-            // อัปเดตข้อมูลติดต่อรวมถึงที่อยู่ (address)
-            $updateStmt = $pdo->prepare("UPDATE Company SET address = ?, contact_person = ?, contact_phone = ?, contact_email = ? WHERE company_id = ?");
-            $updateStmt->execute([$address, $contact_person, $contact_phone,$contact_email, $company_id]);
+            $updateStmt = $pdo->prepare("UPDATE Company SET contact_person = ?, contact_phone = ?, contact_email = ? WHERE company_id = ?");
+            $updateStmt->execute([$contact_person, $contact_phone, $contact_email, $company_id]);
         } else {
-            // เพิ่มบริษัทใหม่พร้อมที่อยู่ (address)
+            // กรณีที่ 2: ไม่เคยมีชื่อนี้ หรือ มีชื่อนี้แต่ที่อยู่ไม่ตรง -> สร้างบริษัทใหม่ (ได้ ID ใหม่)
             $insertCompStmt = $pdo->prepare("INSERT INTO Company (company_name, address, contact_person, contact_phone, contact_email) VALUES (?, ?, ?, ?, ?)");
             $insertCompStmt->execute([$company_name, $address, $contact_person, $contact_phone, $contact_email]);
             $company_id = $pdo->lastInsertId();
         }
-
-        // 2. บันทึกลงตาราง Internship_Request
+    
+        // 2. บันทึกลงตาราง Internship_Request ตามปกติ
         $stmt = $pdo->prepare("INSERT INTO Internship_Request (student_id, company_id, internship_position, start_date, end_date, status) VALUES (?, ?, ?, ?, ?, 1)");
         $stmt->execute([$student_id, $company_id, $internship_position, $start_date, $end_date]);
-
-
+    
         header("Location: student_dashboard.php?success=1");
         exit();
         
     } catch (PDOException $e) {
         $error = "เกิดข้อผิดพลาด: " . $e->getMessage();
     }
+    
 }
 ?>
 <!DOCTYPE html>

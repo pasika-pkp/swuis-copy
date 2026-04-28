@@ -72,8 +72,8 @@ $requests = $stmt->fetchAll();
                             </td>
                             <!-- <td><?php echo htmlspecialchars($req['supervision_note'] ?: '-'); ?></td> -->
                             <td><?php echo getStatusBadge($req['status']); ?></td>
-                            <td><a href="view_detail.php?id=<?php echo $req['request_id']; ?>" class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.85rem;">
-                                <i class="fas fa-search"></i> ดูรายละเอียด</a></td>
+                                <td><button class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.85rem;"onclick="viewDetail(<?php echo $req['request_id']; ?>)">
+                                <i class="fas fa-search"></i> ดูรายละเอียด</button></td>
                         </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -85,6 +85,49 @@ $requests = $stmt->fetchAll();
             </table>
         </div>
     </div>
+<!-- Modal สำหรับแสดงรายละเอียด -->
+<div id="detailModal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); overflow-y: auto;">
+    <div style="background-color: #fff; margin: 5% auto; width: 90%; max-width: 800px; border-radius: 15px; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+        <!-- ปุ่มปิด -->
+        <span onclick="closeModal()" style="position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 28px; font-weight: bold; color: #666;">&times;</span>
+        
+        <!-- พื้นที่แสดงข้อมูลที่จะดึงมาจาก view_detail.php -->
+        <div id="modalBody">
+            <div style="padding: 40px; text-align: center;">กำลังโหลดข้อมูล...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+function viewDetail(id) {
+    const modal = document.getElementById('detailModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    modal.style.display = "block";
+    modalBody.innerHTML = '<div style="padding: 40px; text-align: center;"><i class="fas fa-spinner fa-spin"></i> กำลังโหลดข้อมูล...</div>';
+
+    // ใช้ fetch เพื่อดึงข้อมูลจากไฟล์ view_detail.php โดยส่ง parameter ?id=...// 
+    fetch(`view_detail.php?id=${id}&content_only=1`)
+        .then(response => response.text())
+        .then(html => {
+            modalBody.innerHTML = html;
+        })
+        .catch(err => {
+            modalBody.innerHTML = '<div style="padding: 40px; color: red;">เกิดข้อผิดพลาดในการดึงข้อมูล</div>';
+        });
+}
+
+function closeModal() {
+    document.getElementById('detailModal').style.display = "none";
+}
+
+// คลิกข้างนอกป๊อปอัพแล้วให้ปิด
+window.onclick = function(event) {
+    if (event.target == document.getElementById('detailModal')) {
+        closeModal();
+    }
+}
+</script>
 
 </body>
 </html>

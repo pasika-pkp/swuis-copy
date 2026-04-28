@@ -59,15 +59,14 @@ if (!$data) {
         overflow-wrap: break-word; 
         white-space: normal;
     }
+    .card-header{
+        color: #ce1126;
+    }
 </style>
 
 </head>
 <body>
     <div class="container">
-        <div style="margin-bottom: 1rem;">
-            <a href="student_dashboard.php"class="btn btn-primary"><i class="fas fa-plus"></i> ย้อนกลับ</a>
-        </div>
-
         <div class="card">
             <div class="card-header ">
                 <h3>รายละเอียดการยื่นคำขอฝึกงาน</h3>
