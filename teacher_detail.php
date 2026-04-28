@@ -22,23 +22,34 @@ if (!$req) {
     die("ไม่พบข้อมูลคำขอนี้");
 }
 
-// อัปเดตข้อมูล (การอนุมัติ 1->2 และ บันทึกผลการนิเทศ)
+// อัปเดตข้อมูล (การอนุมัติ/ปฏิเสธ และ บันทึกผลการนิเทศ)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    // จัดการการอนุมัติ (ถ้ามีการกดปุ่มอนุมัติ)
+    // กรณีที่ 1: กดปุ่มอนุมัติ (Status 1 -> 2)
     if (isset($_POST['approve_btn']) && $req['status'] == 1) {
-        $new_status = 2; // 2: อาจารย์ที่ปรึกษาอนุมัติ
-        // บันทึก Log ก่อน
+        $new_status = 2; // อนุมัติ
         $log_stmt = $pdo->prepare("INSERT INTO Status_Log (request_id, old_status, new_status, changed_by) VALUES (?, ?, ?, ?)");
         $log_stmt->execute([$request_id, 1, $new_status, $_SESSION['name']]);
         
-        // อัปเดตตารางหลัก
         $up_stmt = $pdo->prepare("UPDATE Internship_Request SET status = ? WHERE request_id = ?");
         $up_stmt->execute([$new_status, $request_id]);
     }
     
-    // จัดการผลการนิเทศ (supervision_note)
-    if (isset($_POST['supervision_note'])) {
+    // กรณีที่ 2: กดปุ่มปฏิเสธการอนุมัติ (เพิ่มส่วนนี้)
+    if (isset($_POST['reject_btn']) && $req['status'] == 1) {
+        $new_status = 0; // 0: ปฏิเสธ/ไม่ผ่าน
+        $reason = $_POST['reject_reason'] ?? '';
+
+        $log_stmt = $pdo->prepare("INSERT INTO Status_Log (request_id, old_status, new_status, changed_by) VALUES (?, ?, ?, ?)");
+        $log_stmt->execute([$request_id, 1, $new_status, $_SESSION['name']]);
+        
+        // อัปเดตสถานะ พร้อมบันทึกเหตุผลลงใน supervision_note (หรือคอลัมน์ที่เก็บเหตุผล)
+        $up_stmt = $pdo->prepare("UPDATE Internship_Request SET status = ?, supervision_note = ? WHERE request_id = ?");
+        $up_stmt->execute([$new_status, $reason, $request_id]);
+    }
+    
+    // จัดการผลการนิเทศทั่วไป (ถ้ามี)
+    if (isset($_POST['supervision_note']) && !isset($_POST['reject_btn'])) {
         $note = $_POST['supervision_note'];
         $up_stmt = $pdo->prepare("UPDATE Internship_Request SET supervision_note = ? WHERE request_id = ?");
         $up_stmt->execute([$note, $request_id]);
@@ -47,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: teacher_dashboard.php?updated=1");
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -94,11 +106,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 
                 <?php if($req['status'] == 1): ?>
-                <form action="teacher_detail.php?id=<?php echo $request_id; ?>" method="POST" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #ccc;">
+                    <form action="teacher_detail.php?id=<?php echo $request_id; ?>" method="POST" id="statusForm" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #ccc;">
                     <div class="alert alert-warning" style="margin-bottom: 1rem;">คำขอนี้รอการอนุมัติจากอาจารย์ที่ปรึกษา</div>
-                    <button type="submit" name="approve_btn" value="1" class="btn btn-success"><i class="fas fa-check"></i> อนุมัติการไปฝึกงาน </button>
-                </form>
-                <?php endif; ?>
+    
+                    <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
+                    <button type="submit" name="approve_btn" value="1" class="btn btn-success" onclick="return confirm('ยืนยันการอนุมัติ?')">
+                    <i class="fas fa-check"></i> อนุมัติ
+                    </button>
+        
+        <!-- ปุ่มกดเพื่อแสดงช่องกรอกเหตุผลปฏิเสธ -->
+        <button type="button" class="btn btn-danger" onclick="showRejectBox()">
+            <i class="fas fa-times"></i> ปฏิเสธการอนุมัติ
+        </button>
+    </div>
+
+    <!-- ส่วนที่ซ่อนไว้สำหรับปฏิเสธ -->
+    <div id="reject_box" style="display: none; background: #fff5f5; padding: 15px; border-radius: 8px; border: 1px solid #feb2b2;">
+        <label style="color: #c53030; font-weight: bold;">ระบุเหตุผลการปฏิเสธ:</label>
+        <textarea name="reject_reason" class="form-control" rows="3" placeholder="ทำไมถึงไม่อนุมัติ..."></textarea>
+        <button type="submit" name="reject_btn" class="btn btn-danger" style="margin-top: 10px; width: 100%;">ยืนยันการปฏิเสธ</button>
+    </div>
+</form>
+
+<script>
+function showRejectBox() {
+    var box = document.getElementById('reject_box');
+    box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+}
+</script>
+<?php endif; ?>
+
             </div>
 
             <!-- ฟอร์มบันทึกผลการนิเทศ -->

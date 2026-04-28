@@ -12,6 +12,36 @@ $stmt = $pdo->query("
 ");
 $requests = $stmt->fetchAll();
 
+
+// รับค่าค้นหาจาก URL (ถ้ามี)
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+// เตรียม SQL พื้นฐาน
+$sql = "
+    SELECT r.*, c.company_name, s.first_name, s.last_name, s.student_id as st_id
+    FROM Internship_Request r
+    JOIN Company c ON r.company_id = c.company_id
+    JOIN Student s ON r.student_id = s.student_id
+";
+
+if ($search != "") {
+    $sql .= " WHERE s.student_id LIKE ? OR s.first_name LIKE ? ";
+}
+
+$sql .= " ORDER BY r.created_at DESC";
+
+$stmt = $pdo->prepare($sql);
+
+if ($search != "") {
+    // ส่งค่าเข้าไปตามลำดับเครื่องหมาย ?
+    $stmt->execute(["%$search%", "%$search%"]);
+} else {
+    $stmt->execute();
+}
+
+
+
+$requests = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -39,7 +69,19 @@ $requests = $stmt->fetchAll();
 
     <div class="container">
         <h2 style="margin-bottom: 1.5rem;"><i class="fas fa-chalkboard-teacher" style="color: var(--primary-red);"></i> รายการคำขอฝึกงานทั้งหมด </h2>
-
+        <div style="margin-bottom: 1rem; display: flex; justify-content: flex-end;">
+        <form method="GET" style="display: flex; gap: 5px;">
+            <input type="text" name="search" placeholder="พิมพ์รหัสนิสิต.." 
+                   value="<?php echo htmlspecialchars($search); ?>" 
+                   style="padding: 0.5rem; border-radius: 5px; border: 1px solid #ddd;">
+            <button type="submit" class="btn" style="background: var(--primary-red); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                <i class="fas fa-search"></i> ค้นหา
+            </button>
+            <?php if($search != ""): ?>
+                <a href="?" class="btn-outline" style="text-decoration: none; padding: 0.5rem;">ล้างค่า</a>
+            <?php endif; ?>
+        </form>
+    </div>
         <?php if(isset($_GET['updated'])): ?>
             <div class="alert alert-success">บันทึกข้อมูลเรียบร้อยแล้ว</div>
         <?php endif; ?>

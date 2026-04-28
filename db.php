@@ -38,6 +38,7 @@ function checkRole($role) {
 }
 function getStatusBadge($status) {
     switch($status) {
+        case 0: return '<span class="badge" style="background-color: #dc3545; color: white;">ปฏิเสธการอนุมัติ</span>';
         case 1: return '<span class="badge bg-1">รับเรื่องเข้าระบบ</span>';
         case 2: return '<span class="badge bg-2">อาจารย์ที่ปรึกษาอนุมัติ</span>';
         case 3: return '<span class="badge bg-3">ออกใบส่งตัวแล้ว</span>';
